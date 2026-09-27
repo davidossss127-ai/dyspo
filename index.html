@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Dyspozytora - Polska Logistyka v5.0 (ETS2 Generator)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1250px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .panel {
+            background-color: #1a1a1a;
+            border: 3px solid #dc2626;
+            border-radius: 12px;
+            width: 580px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #dc2626;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            background: linear-gradient(to bottom, #1a1a1a, #260505);
+            border-radius: 8px 8px 0 0;
+            padding-top: 5px;
+        }
+        .header h2 { margin: 0; color: #ffffff; font-size: 18px; text-shadow: 0 0 5px rgba(220,38,38,0.5); }
+        .header span { font-size: 12px; color: #dc2626; font-weight: bold; }
+        
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .form-group {
+            margin-bottom: 8px;
+            flex: 1;
+        }
+        label {
+            display: block;
+            font-size: 11px;
+            color: #ccc;
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #111;
+            color: #fff;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #dc2626;
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            height: 40px;
+        }
+        .checkbox-group, .radio-group {
+            background: #111;
+            border: 1px solid #444;
+            padding: 6px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+        .checkbox-group label, .radio-group label {
+            display: inline;
+            font-weight: normal;
+            margin-right: 10px;
+            cursor: pointer;
+            color: #ddd;
+        }
+        .checkbox-group input, .radio-group input {
+            width: auto;
+            margin-right: 4px;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #dc2626;
+            color: #ffffff;
+            border: 2px solid #b91c1c;
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        .btn:hover { background-color: #ef4444; }
+        .btn-random {
+            background-color: #d97706;
+            border: 2px solid #b45309;
+            margin-bottom: 8px;
+        }
+        .btn-random:hover { background-color: #f59e0b; }
+        .btn-copy {
+            background-color: #5865F2;
+            color: #ffffff;
+            border: 2px solid #4752C4;
+            margin-bottom: 12px;
+        }
+        .btn-copy:hover { background-color: #7983F5; }
+
+        .output-box {
+            background-color: #111111;
+            border: 2px solid #333;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #ffffff;
+            font-size: 11px;
+            white-space: pre-wrap;
+            height: 440px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .history-section {
+            background: #151515;
+            border: 1px solid #333;
+            padding: 8px;
+            border-radius: 6px;
+            max-height: 90px;
+            overflow-y: auto;
+        }
+        .history-item {
+            font-size: 11px;
+            padding: 3px 6px;
+            margin-bottom: 3px;
+            background: #222;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        .history-item:hover { background: #333; color: #ff6b6b; }
+        .section-title {
+            font-size: 12px;
+            color: #ff4d4d;
+            border-bottom: 1px dashed #444;
+            margin: 10px 0 6px 0;
+            padding-bottom: 2px;
+            font-weight: bold;
+        }
+        .random-box {
+            background: #221212;
+            border: 1px dashed #dc2626;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- PANEL WPISU DYSPOZYTORA -->
+    <div class="panel">
+        <div class="header">
+            <h2>POLSKA LOGISTYKA</h2>
+            <span>PANEL DYSPOZYTORA TRAS v5.0 (ETS2 Generator Losowy)</span>
+        </div>
+
+        <!-- SEKCJA LOSOWANIA ETS2 -->
+        <div class="random-box">
+            <div class="section-title" style="margin-top: 0; color: #f59e0b;">🎲 LOSOWY GENERATOR TRAS ETS2</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Wybierz bazę map do losowania:</label>
+                    <select id="randomMapScope">
+                        <option value="promods">ProMods + Poland Rebuilding (Rozszerzona)</option>
+                        <option value="dlc">Podstawka + Oficjalne DLC SCS</option>
+                        <option value="vanilla">Tylko Czysta Gra (Vanilla)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Tryb Rozgrywki:</label>
+                    <div class="radio-group" style="margin-bottom: 0;">
+                        <label><input type="radio" name="gameMode" value="TruckersMP (Simulation 1)" checked> TruckersMP</label>
+                        <label><input type="radio" name="gameMode" value="Singleplayer"> Singleplayer</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-random" onclick="randomizeEntireRoute()">🎲 Wylosuj Nową Trasę z ETS2</button>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Dyspozytor (Autor):</label>
+                <input type="text" id="dispatcherName" value="Szef Dyspozytorni">
+            </div>
+            <div class="form-group">
+                <label>Kierowca / Przypisanie:</label>
+                <input type="text" id="driverTarget" value="Wszyscy Kierowcy">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Tel. / Łączność:</label>
+                <input type="text" id="dispatcherPhone" value="+48 600-500-400 (CB: Kan. 19)">
+            </div>
+            <div class="form-group">
+                <label>Wymagana Ciężarówka:</label>
+                <select id="truckModel">
+                    <option value="Dowolna / Własny zestaw">Dowolna / Własny zestaw</option>
+                    <option value="Volvo FH16 750 KM">Volvo FH16 (Ciężki gabaryt)</option>
+                    <option value="Scania S 650 V8">Scania S 650 V8 (Uniwersalna)</option>
+                    <option value="DAF XG+ 530">DAF XG+ 530 (Trasy długie)</option>
+                    <option value="Mercedes-Benz Actros">Mercedes-Benz New Actros</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-title">📍 TRASA I MIEJSCE WYJAZDU</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Miasto Wyjazdu:</label>
+                <input type="text" id="routeFrom" value="Warszawa">
+            </div>
+            <div class="form-group">
+                <label>Miasto Docelowe:</label>
+                <input type="text" id="routeTo" value="Berlin">
+            </div>
+        </div>
+
+        <div class="section-title">🏭 LOGISTYKA FIRM I RAMPY</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Szybki wybór firmy (Załadunek):</label>
+                <select id="selectCompanyFrom" onchange="fillCompanyFromPreset()">
+                    <option value="">-- Wybierz z szablonu --</option>
+                    <optgroup label="Firmy z Euro Truck Simulator 2">
+                        <option value="Stokes">Stokes (Magazyn ogólny)</option>
+                        <option value="Tradeaux">Tradeaux (Spedycja międzynarodowa)</option>
+                        <option value="Sanbuilders">Sanbuilders (Materiały budowlane)</option>
+                        <option value="Kaarfor">Kaarfor (Centrum logistyczne)</option>
+                        <option value="ACB">ACB (Fabryka konstrukcji)</option>
+                        <option value="Ns Oil">Ns Oil (Terminal paliwowy)</option>
+                    </optgroup>
+                    <optgroup label="Firmy Realne / Globalne">
+                        <option value="DHL Supply Chain">DHL Supply Chain</option>
+                        <option value="Amazon Logistics">Amazon Logistics</option>
+                        <option value="DB Schenker">DB Schenker</option>
+                        <option value="Raben Group">Raben Group</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nazwa Firmy Nadawczej:</label>
+                <input type="text" id="companyFrom" value="Stokes">
+            </div>
+            <div class="form-group" style="max-width: 120px;">
+                <label>Rampa Zał.:</label>
+                <input type="text" id="rampFrom" value="Rampa #04">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Szybki wybór firmy (Rozładunek):</label>
+                <select id="selectCompanyTo" onchange="fillCompanyToPreset()">
+                    <option value="">-- Wybierz z szablonu --</option>
+                    <optgroup label="Firmy z Euro Truck Simulator 2">
+                        <option value="Kaarfor">Kaarfor (Supermarket / Odbiorca)</option>
+                        <option value="SellPlan">SellPlan (Magazyn handlowy)</option>
+                        <option value="Tree-ET">Tree-ET (Tartak / Skład)</option>
+                        <option value="Containers Port">Containers Port (Terminal kontenerowy)</option>
+                        <option value="Suprema">Suprema (Magazyn centralny)</option>
+                    </optgroup>
+                    <optgroup label="Firmy Realne / Globalne">
+                        <option value="Biedronka / Jeronimo Martins">Biedronka / Jeronimo Martins</option>
+                        <option value="Lidl Polska">Lidl Polska</option>
+                        <option value="Dachser Logistics">Dachser Logistics</option>
+                        <option value="DHL Express Hub">DHL Express Hub</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nazwa Firmy Odbiorczej:</label>
+                <input type="text" id="companyTo" value="Kaarfor">
+            </div>
+            <div class="form-group" style="max-width: 120px;">
+                <label>Rampa Rozł.:</label>
+                <input type="text" id="rampTo" value="Rampa B-12">
+            </div>
+        </div>
+
+        <div class="section-title">📦 DANE ŁADUNKU I MAPA</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Wersja Mapy / Konfiguracja:</label>
+                <input type="text" id="mapVersion" value="ProMods + Poland Rebuilding">
+            </div>
+            <div class="form-group">
+                <label>Wymagane DLC / Mody:</label>
+                <input type="text" id="requiredDLC" value="Going East!, Scandinavia, ProMods">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Ładunek:</label>
+                <input type="text" id="cargoName" value="Panele słoneczne">
+            </div>
+            <div class="form-group">
+                <label>Waga ładunku:</label>
+                <input type="text" id="cargoWeight" value="18.2 t">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Szacowany Dystans:</label>
+                <input type="text" id="routeDistance">
+            </div>
+            <div class="form-group">
+                <label>Stawka za kurs (€):</label>
+                <input type="text" id="orderBudget" value="14 500 €">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Zalecana trasa / Droga przejazdu:</label>
+            <input type="text" id="roadDetails">
+        </div>
+
+        <label>Automatyczne uwagi do zlecenia:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="chkADR" onchange="generateDispatcherRoute()"> ADR</label>
+            <label><input type="checkbox" id="chkOversized" onchange="generateDispatcherRoute()"> Gabaryt</label>
+            <label><input type="checkbox" id="chkExpress" onchange="generateDispatcherRoute()"> Ekspres</label>
+            <label><input type="checkbox" id="chkFragile" onchange="generateDispatcherRoute()"> Ostrożnie</label>
+        </div>
+
+        <div class="form-group">
+            <label>Notatki / Instrukcje dyspozytora:</label>
+            <textarea id="dispatcherNotes">Wymagane terminowe dostarczenie. Obowiązuje zakaz uszkodzeń powyżej 2%. Szerokiej drogi!</textarea>
+        </div>
+
+        <button class="btn" onclick="saveAndGenerate()">Generuj i Zapisz Zlecenie</button>
+    </div>
+
+    <!-- PANEL WYNIKOWY -->
+    <div class="panel">
+        <div class="header">
+            <h2>PODGLĄD DLA DISCORDA</h2>
+            <span>Gotowy komunikat w markdown</span>
+        </div>
+
+        <div class="output-box" id="outputBox">
+            <div class="placeholder-text">Wprowadź dane trasy po lewej stronie...</div>
+        </div>
+
+        <button class="btn btn-copy" onclick="copyToClipboard()">📋 Kopiuj sformatowany tekst dla Discorda</button>
+
+        <label>📜 Ostatnio wygenerowane zlecenia (Historia):</label>
+        <div class="history-section" id="historyList">
+            <div style="color: #666; font-size: 11px; text-align: center; margin-top: 10px;">Brak zapisanych zleceń w sesji.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentOrderNumber = "";
+    let orderHistory = [];
+
+    // Bazy miast i firm do losowania
+    const proModsCities = [
+        { from: "Warszawa", to: "Berlin", map: "ProMods + Poland Rebuilding", dlc: "ProMods, Going East!", dist: 580, route: "Warszawa ➔ S8 ➔ A2 ➔ Świecko ➔ Berlin" },
+        { from: "Gdańsk", to: "Kraków", map: "Poland Rebuilding", dlc: "Poland Rebuilding, Going East!", dist: 610, route: "Gdańsk ➔ S7 ➔ Warszawa ➔ S7 ➔ Kraków" },
+        { from: "Reykjavík", to: "Akureyri", map: "ProMods (Islandia)", dlc: "ProMods, Beyond the Baltic Sea", dist: 430, Route: "Reykjavík ➔ Droga 1 ➔ Akureyri" },
+        { from: "Barcelona", to: "Paryż", map: "ProMods", dlc: "ProMods, Iberia, Vive la France", dist: 1050, route: "Barcelona ➔ AP-7 ➔ Bordeaux ➔ A10 ➔ Paryż" },
+        { from: "Wilno", to: "Tallinn", map: "ProMods", dlc: "ProMods, Beyond the Baltic Sea", dist: 620, route: "Wilno ➔ Via Baltica ➔ Ryga ➔ Tallinn" },
+        { from: "Wiedeń", to: "Budapeszt", map: "ProMods / Standard", dlc: "Going East!", dist: 245, route: "Wiedeń ➔ A4 ➔ Hegyeshalom ➔ Budapeszt" },
+        { from: "Oslo", to: "Sztokholm", map: "ProMods", dlc: "Scandinavia", dist: 525, route: "Oslo ➔ E18 ➔ Karlstad ➔ E20 ➔ Sztokholm" }
+    ];
+
+    const dlcCities = [
+        { from: "Katowice", to: "Duisburg", map: "SCS DLC (Wielka Mapa)", dlc: "Going East!, Scandinavia, Road to the Black Sea", dist: 1120, route: "Katowice ➔ A4 ➔ Drezno ➔ Frankfurt ➔ Duisburg (Uwaga: Trasa przez strefę TMP!)" },
+        { from: "Kraków", to: "Wiedeń", map: "SCS Standard", dlc: "Going East!", dist: 480, route: "Kraków ➔ Bielsko-Biała ➔ Ostrawa ➔ Brno ➔ Wiedeń" },
+        { from: "Szczecin", to: "Rostock", map: "SCS Standard", dlc: "Going East!", dist: 210, route: "Szczecin ➔ Autostrada A6 ➔ Granica ➔ Rostock" },
+        { from: "Praga", to: "Mediolan", map: "SCS Standard", dlc: "Italia, Going East!", dist: 860, route: "Praga ➔ Monachium ➔ Przełęcz Brenner ➔ Mediolan" },
+        { from: "Innsbruck", to: "Klagenfurt", map: "SCS Standard", dlc: "Scandinavia, Going East!", dist: 310, route: "Innsbruck ➔ Autostrada A12 / A10 ➔ Klagenfurt" }
+    ];
+
+    const vanillaCities = [
+        { from: "Berlin", to: "Paryż", map: "Podstawka ETS2 (Vanilla)", dlc: "Brak wymaganych DLC", dist: 1040, route: "Berlin ➔ Hanower ➔ Dortmund ➔ Paryż" },
+        { from: "Wiedeń", to: "Praga", map: "Podstawka ETS2 (Vanilla)", dlc: "Brak wymaganych DLC", dist: 330, route: "Wiedeń ➔ Brno ➔ Praga" },
+        { from: "Amsterdam", to: "Bruksela", map: "Podstawka ETS2 (Vanilla)", dlc: "Brak wymaganych DLC", dist: 210, route: "Amsterdam ➔ Antwerpia ➔ Bruksela" },
+        { from: "Mediolan", to: "Rzym", map: "Podstawka ETS2 (Vanilla)", dlc: "Brak wymaganych DLC", dist: 570, route: "Mediolan ➔ Bolonia ➔ Florencja ➔ Rzym" }
+    ];
+
+    const etsCompaniesFrom = ["Stokes", "Tradeaux", "Sanbuilders", "Kaarfor", "ACB", "Ns Oil", "ITCC", "Lisboan", "Sag & Tre"];
+    const etsCompaniesTo = ["SellPlan", "Tree-ET", "Containers Port", "Suprema", "Kaarfor", "GNT", "IKA Bohag", "LB Master", "Radus"];
+    const etsCargoes = [
+        { name: "Panele słoneczne", weight: "18.2 t" },
+        { name: "Części samochodowe", weight: "21.5 t" },
+        { name: "Materiały budowlane", weight: "24.0 t" },
+        { name: "Elektronika użytkowa", weight: "12.4 t" },
+        { name: "Żywność mrożona", weight: "19.8 t" },
+        { name: "Turbina wiatrowa (Gabaryt)", weight: "38.5 t" },
+        { name: "Rury stalowe", weight: "22.1 t" },
+        { name: "Chemię przemysłową (ADR)", weight: "16.0 t" }
+    ];
+
+    function getRandomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function randomizeEntireRoute() {
+        const scope = document.getElementById('randomMapScope').value;
+        let pool = proModsCities;
+        if (scope === 'dlc') pool = dlcCities;
+        if (scope === 'vanilla') pool = vanillaCities;
+
+        const routeInfo = getRandomItem(pool);
+        const compFrom = getRandomItem(etsCompaniesFrom);
+        const compTo = getRandomItem(etsCompaniesTo);
+        const cargoObj = getRandomItem(etsCargoes);
+
+        // Ustawianie losowych danych w polach formularza
+        document.getElementById('routeFrom').value = routeInfo.from;
+        document.getElementById('routeTo').value = routeInfo.to;
+        document.getElementById('companyFrom').value = compFrom;
+        document.getElementById('rampFrom').value = "Rampa #" + Math.floor(1 + Math.random() * 15);
+        document.getElementById('companyTo').value = compTo;
+        document.getElementById('rampTo').value = "Rampa B-" + Math.floor(1 + Math.random() * 20);
+        document.getElementById('mapVersion').value = routeInfo.map;
+        document.getElementById('requiredDLC').value = routeInfo.dlc;
+        document.getElementById('cargoName').value = cargoObj.name;
+        document.getElementById('cargoWeight').value = cargoObj.weight;
+        document.getElementById('routeDistance').value = routeInfo.dist + " km";
+        document.getElementById('roadDetails').value = routeInfo.route;
+
+        // Budżet w zależności od dystansu
+        let budget = Math.round(routeInfo.dist * (2.3 + Math.random() * 0.7) / 50) * 50;
+        document.getElementById('orderBudget').value = budget.toLocaleString() + " €";
+
+        // Losowe zaznaczenie tagów ADR / Gabaryt
+        if (cargoObj.name.includes('ADR') || Math.random() > 0.7) {
+            document.getElementById('chkADR').checked = true;
+        } else {
+            document.getElementById('chkADR').checked = false;
+        }
+
+        if (cargoObj.name.includes('Gabaryt') || Math.random() > 0.8) {
+            document.getElementById('chkOversized').checked = true;
+        } else {
+            document.getElementById('chkOversized').checked = false;
+        }
+
+        currentOrderNumber = generateOrderNumber(routeInfo.from, routeInfo.to);
+        generateDispatcherRoute();
+    }
+
+    function fillCompanyFromPreset() {
+        const val = document.getElementById('selectCompanyFrom').value;
+        if (val) {
+            document.getElementById('companyFrom').value = val;
+            generateDispatcherRoute();
+        }
+    }
+
+    function fillCompanyToPreset() {
+        const val = document.getElementById('selectCompanyTo').value;
+        if (val) {
+            document.getElementById('companyTo').value = val;
+            generateDispatcherRoute();
+        }
+    }
+
+    function generateOrderNumber(from, to) {
+        const cleanFrom = from.replace(/[^a-zA-ZżźćńółęąśŻŹĆŃÓŁĘĄŚ]/g, "").toUpperCase();
+        const cleanTo = to.replace(/[^a-zA-ZżźćńółęąśŻŹĆŃÓŁĘĄŚ]/g, "").toUpperCase();
+        
+        let prefixFrom = cleanFrom.substring(0, 2) || "PL";
+        let prefixTo = cleanTo.substring(0, 3) || "EU";
+        
+        const randomCode = Math.floor(100 + Math.random() * 900);
+        return `LI-${prefixFrom}${prefixTo} | ${randomCode}/26/ETS`;
+    }
+
+    function calculateRouteData() {
+        const from = document.getElementById('routeFrom').value.trim();
+        const to = document.getElementById('routeTo').value.trim();
+        const map = document.getElementById('mapVersion').value;
+
+        let baseDist = 500;
+        let routeDesc = "Autostrady krajowe -> Drogi główne";
+
+        if (from.toLowerCase().includes('warszawa') && to.toLowerCase().includes('berlin')) {
+            baseDist = 580;
+            routeDesc = "Warszawa ➔ S8 ➔ A2 ➔ Świecko ➔ Berlin (Autostrada A10)";
+        } else {
+            baseDist = Math.min(250 + (from.length + to.length) * 35, 1600);
+            routeDesc = `${from} ➔ Główny węzeł drogowy ➔ Autostrada / Droga ekspresowa ➔ ${to}`;
+        }
+
+        document.getElementById('routeDistance').value = baseDist + " km";
+        document.getElementById('roadDetails').value = routeDesc;
+
+        let calculatedBudget = Math.round(baseDist * (2.2 + Math.random() * 0.5) / 50) * 50;
+        document.getElementById('orderBudget').value = calculatedBudget.toLocaleString() + " €";
+        
+        currentOrderNumber = generateOrderNumber(from, to);
+        generateDispatcherRoute();
+    }
+
+    document.getElementById('routeFrom').addEventListener('input', calculateRouteData);
+    document.getElementById('routeTo').addEventListener('input', calculateRouteData);
+
+    function buildFormattedText() {
+        if (!currentOrderNumber) {
+            const from = document.getElementById('routeFrom').value.trim();
+            const to = document.getElementById('routeTo').value.trim();
+            currentOrderNumber = generateOrderNumber(from, to);
+        }
+
+        const dispatcher = document.getElementById('dispatcherName').value.trim();
+        const driver = document.getElementById('driverTarget').value.trim();
+        const phone = document.getElementById('dispatcherPhone').value.trim();
+        const from = document.getElementById('routeFrom').value.trim();
+        const to = document.getElementById('routeTo').value.trim();
+        const compFrom = document.getElementById('companyFrom').value.trim();
+        const rampFrom = document.getElementById('rampFrom').value.trim();
+        const compTo = document.getElementById('companyTo').value.trim();
+        const rampTo = document.getElementById('rampTo').value.trim();
+        const map = document.getElementById('mapVersion').value;
+        const dlc = document.getElementById('requiredDLC').value.trim();
+        const distance = document.getElementById('routeDistance').value.trim();
+        const budget = document.getElementById('orderBudget').value.trim();
+        const cargo = document.getElementById('cargoName').value.trim();
+        const weight = document.getElementById('cargoWeight').value.trim();
+        const truck = document.getElementById('truckModel').value;
+        const road = document.getElementById('roadDetails').value.trim();
+        const notes = document.getElementById('dispatcherNotes').value.trim();
+
+        // Pobranie zaznaczonego trybu gry
+        let selectedMode = "TruckersMP (Simulation 1)";
+        const modeRadios = document.getElementsByName('gameMode');
+        for (const radio of modeRadios) {
+            if (radio.checked) {
+                selectedMode = radio.value;
+                break;
+            }
+        }
+
+        let autoTags = [];
+        if (document.getElementById('chkADR').checked) autoTags.push("⚠️ **TOWAR ADR**");
+        if (document.getElementById('chkOversized').checked) autoTags.push("🚨 **ŁADUNEK GABARYTOWY**");
+        if (document.getElementById('chkExpress').checked) autoTags.push("⏱️ **STATUS: EKSPRES**");
+        if (document.getElementById('chkFragile').checked) autoTags.push("🛡️ **OSTROŻNIE**");
+
+        let tagsBlock = autoTags.length > 0 ? "\n" + autoTags.join(" | ") + "\n" : "";
+
+        return `### 🚚 OFICJALNE ZLECENIE SPEDYCYJNE (ETS2)
+> **NR ZLECENIA:** \`ZLECENIE ${currentOrderNumber}\`
+> **Firma:** Polska Logistyka | **Tryb:** ${selectedMode}
+> **Dyspozytor:** ${dispatcher} | **Kontakt:** ${phone}
+
+**SZCZEGÓŁY TRANSPORTU I RAMPY:**
+• 🗺️ **Mapa / Wersja:** ${map} (${dlc})
+• 🏭 **Załadunek:** **${compFrom}** (${from}) — \`${rampFrom}\`
+• 🏁 **Rozładunek:** **${compTo}** (${to}) — \`${rampTo}\`
+• 🚛 **Wymagany zestaw:** ${truck}
+${tagsBlock}
+**PARAMETRY TRASY I ŁADUNKU:**
+• 📦 **Towar:** ${cargo} (${weight})
+• 📏 **Dystans:** ${distance} | 💶 **Stawka:** \`${budget}\`
+• 🛣️ **Trasa przejazdu:** ${road}
+
+**WYTYCZNE DYSPOZYTORA:**
+> ${notes}
+
+*Powodzenia na trasie! Szerokości i przyczepności!* 🛣️✨`;
+    }
+
+    function generateDispatcherRoute() {
+        document.getElementById('outputBox').innerText = buildFormattedText();
+    }
+
+    function saveAndGenerate() {
+        generateDispatcherRoute();
+        
+        const titleSummary = `${currentOrderNumber} (${document.getElementById('routeFrom').value} ➔ ${document.getElementById('routeTo').value})`;
+        const fullText = buildFormattedText();
+        
+        orderHistory.unshift({ title: titleSummary, text: fullText });
+        if (orderHistory.length > 5) orderHistory.pop();
+        
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const histContainer = document.getElementById('historyList');
+        if (orderHistory.length === 0) {
+            histContainer.innerHTML = '<div style="color: #666; font-size: 11px; text-align: center; margin-top: 10px;">Brak zapisanych zleceń w sesji.</div>';
+            return;
+        }
+
+        let html = '';
+        orderHistory.forEach((item, index) => {
+            html += `<div class="history-item" onclick="loadHistoryItem(${index})">
+                <span>📁 ${item.title}</span>
+                <span style="color: #888;">[Wklej]</span>
+            </div>`;
+        });
+        histContainer.innerHTML = html;
+    }
+
+    function loadHistoryItem(index) {
+        document.getElementById('outputBox').innerText = orderHistory[index].text;
+    }
+
+    function copyToClipboard() {
+        const outputBox = document.getElementById('outputBox');
+        const text = outputBox.innerText;
+
+        if (!text || text.includes('Wprowadź dane trasy')) {
+            alert('Najpierw wygeneruj zlecenie trasy!');
+            return;
+        }
+
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Zlecenie zostało pomyślnie skopiowane! Możesz wkleić je bezpośrednio na Discorda.');
+        }).catch(err => {
+            alert('Nie udało się skopiować tekstu.');
+        });
+    }
+
+    window.onload = function() {
+        randomizeEntireRoute();
+    };
+</script>
+
+</body>
+</html>
